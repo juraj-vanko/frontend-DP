@@ -20,7 +20,7 @@ const actions = {
         console.log(sentence)
         axios({
             method: 'get',
-            url: "http://127.0.0.1:8000/tagger/?sentence="+sentence,
+            url: "http://108.61.99.202/tagger/?sentence="+sentence,
             params: formData,
             data: formData,
             body: formData,
