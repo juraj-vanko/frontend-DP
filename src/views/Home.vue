@@ -10,7 +10,7 @@
         </p>
         <div class="home__header__analyzer__tagfield">
           <textarea :class="{'theme-dark': getDarkTheme}" name="sentence" v-model="sentence"></textarea>
-          <div v-if="error" class="error">Najprv musíte zadať text!</div>
+          <div v-if="errorSentence.length > 0" class="error">{{errorSentence}}</div>
           <button class="btn" @click="controlSentence()">Rozbor vety</button>
         </div>
       </div>
@@ -75,7 +75,7 @@ export default {
     return {
       sentence: "",
       color: '#DD00AC',
-      error: false,
+      errorSentence: "",
     }
   },
   methods: {
@@ -84,11 +84,16 @@ export default {
     }),
     controlSentence() {
       if(this.sentence) {
-        this.error = false;
-        this.tagSentence(this.sentence);
+        if(this.sentence.length <= 200) {
+          this.errorSentence = "";
+          this.tagSentence(this.sentence);
+        }
+        else {
+          this.errorSentence = "Príliš dlhý text! Povolených znakov je 200.";
+        }
       } 
       else {
-        this.error = true;
+        this.errorSentence = "Najprv musíte zadať nejaké slová / vetu!";
       }
     }
 },
