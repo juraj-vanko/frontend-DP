@@ -10,7 +10,8 @@
         </p>
         <div class="home__header__analyzer__tagfield">
           <textarea :class="{'theme-dark': getDarkTheme}" name="sentence" v-model="sentence"></textarea>
-          <button class="btn" @click="tagSentence(sentence)">Rozbor vety</button>
+          <div v-if="error" class="error">Najprv musíte zadať text!</div>
+          <button class="btn" @click="controlSentence()">Rozbor vety</button>
         </div>
       </div>
       <div class="home__header__illustration">
@@ -74,12 +75,22 @@ export default {
     return {
       sentence: "",
       color: '#DD00AC',
+      error: false,
     }
   },
   methods: {
     ...mapActions({
         tagSentence: 'home/tagSentence',
-    })
+    }),
+    controlSentence() {
+      if(this.sentence) {
+        this.error = false;
+        this.tagSentence(this.sentence);
+      } 
+      else {
+        this.error = true;
+      }
+    }
 },
 computed: {
     ...mapGetters({
@@ -142,6 +153,10 @@ $dark: #272640;
           font-size: 20px;
           line-height: 30px;
           text-transform: none;
+        }
+        .error {
+          color: red;
+          font-size: 12px;
         }
       }
     }
