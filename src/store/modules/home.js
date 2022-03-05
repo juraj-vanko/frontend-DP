@@ -17,7 +17,6 @@ const actions = {
         commit('setHomeLoading', true)
         var formData = new FormData()
         formData.append('sentence', sentence)
-        console.log(sentence)
         axios({
             method: 'get',
             url: "http://108.61.99.202:8000/tagger/?sentence="+sentence,
@@ -25,7 +24,6 @@ const actions = {
             data: formData,
             body: formData,
         }).then(function (response) {
-            console.log(response.data[0]['tagger'])
             if(response.data[0]['tagger']){
                 commit('setTaggerResult', response.data[0]['tagger']);
             }
