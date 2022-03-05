@@ -3,8 +3,8 @@ module.exports = {
   devServer: {
     // setting host should not be necessary
     // host: '0.0.0.0:8080'7
-    
-    host: 'localhost',
+    proxy: 'http://localhost:3000/',
+    host: '0.0.0.0',
     port:3000,
     disableHostCheck: true,
     headers: {
