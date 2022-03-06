@@ -22,7 +22,7 @@
     <div class="home__loading" v-if="getHomeLoading">
       <BounceLoader :color="color"></BounceLoader>
     </div>
-    <div class="home__result" v-if="getTaggerResult.length">     
+    <div id="resultTagging" class="home__result" v-if="getTaggerResult.length">     
       <h1>
         Výsledok
       </h1> 
@@ -97,14 +97,21 @@ export default {
       }
     }
 },
-computed: {
-    ...mapGetters({
-        getTaggerResult: 'home/getTaggerResult',
-        getHomeLoading: 'home/getHomeLoading',
-        getDarkTheme: 'home/getDarkTheme'
-    }),
-},
-
+  watch: {
+    getTaggerResult() {            
+      setTimeout(function() {
+        const el = document.getElementById("resultTagging");
+        el.scrollIntoView({behavior: 'smooth'});
+      }, 10)        
+    }
+  },
+  computed: {
+      ...mapGetters({
+          getTaggerResult: 'home/getTaggerResult',
+          getHomeLoading: 'home/getHomeLoading',
+          getDarkTheme: 'home/getDarkTheme'
+      }),
+  },
 }
 </script>
 
@@ -122,7 +129,7 @@ $dark: #272640;
   padding: 10px 20px;
 
   &__header {
-    padding: 20px;
+    padding-right: 30px;
     display: flex;
 
     &__analyzer {
@@ -240,7 +247,7 @@ $dark: #272640;
       display: flex;
       flex-wrap: wrap;
       align-items: flex-start;
-      justify-content: space-between;
+      gap: 20px;
 
       &__words {
         background-color: $white;
