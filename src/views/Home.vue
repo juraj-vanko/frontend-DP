@@ -283,7 +283,7 @@ $dark: #272640;
 
             .label {
               font-size: 17px;
-              
+              color: $pink;
             }
 
             .content {
